@@ -45,7 +45,7 @@ def send_llm_chat_request(
         temperature: float=0.9,
         top_p: float=0.95,
         top_k: int=50,
-        max_tokens: int=2048,
+        max_tokens: int=-1,
         stream: bool=False,
         typewriter: Typewriter=Typewriter(0.03)
     ) -> str:
@@ -85,9 +85,10 @@ def send_llm_chat_request(
         "temperature": temperature,
         "top_p": top_p,
         "top_k": top_k,
-        "max_tokens": max_tokens,
         "stream": stream
     }
+    if max_tokens > 0:
+        payload["max_tokens"] = max_tokens
     
     try:
         if stream:
